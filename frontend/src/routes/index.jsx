@@ -11,17 +11,19 @@ import Movimentacoes from '../pages/Estoque/Movimentacoes';
 import ListaCompras from '../pages/Estoque/ListaCompras';
 import ContasPagar from '../pages/Gerencial/ContasPagar';
 import Fornecedores from '../pages/Gerencial/Fornecedores';
+import PontoFuncionario from '../pages/PontoFuncionario/Ponto';
+import ListaGerencial from '../pages/ListaGerencial/Lista';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  if (loading) return <div className="flex items-center justify-center h-screen">Carregando...</div>;
+  if (loading) return <div className="dashboard">Carregando...</div>;
   return user ? children : <Navigate to="/login" />;
 };
 
 const Layout = ({ children }) => (
-  <div className="flex">
+  <div style={{ display: 'flex' }}>
     <Sidebar />
-    <main className="flex-1 ml-64 p-8">{children}</main>
+    <main style={{ flex: 1, marginLeft: '256px', padding: '2rem' }}>{children}</main>
   </div>
 );
 
@@ -38,6 +40,8 @@ export default function AppRoutes() {
       <Route path="/estoque/compras" element={<PrivateRoute><Layout><ListaCompras /></Layout></PrivateRoute>} />
       <Route path="/gerencial/contas" element={<PrivateRoute><Layout><ContasPagar /></Layout></PrivateRoute>} />
       <Route path="/gerencial/fornecedores" element={<PrivateRoute><Layout><Fornecedores /></Layout></PrivateRoute>} />
+      <Route path="/Ponto" element={<PontoFuncionario/>}/>
+      <Route path="/ListaGerencial" element={<ListaGerencial/>}/>
     </Routes>
   );
 }

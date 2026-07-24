@@ -1,0 +1,125 @@
+.dashboard {
+  padding: 2rem;
+}
+
+.dashboard-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 2rem;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.dashboard-card-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-card-dot.green { background-color: #22c55e; }
+.dashboard-card-dot.yellow { background-color: #eab308; }
+.dashboard-card-dot.red { background-color: #ef4444; }
+.dashboard-card-dot.blue { background-color: #0ea5e9; }
+
+.dashboard-card-label {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.dashboard-card-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 0.25rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.dashboard-panel {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.dashboard-panel h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.dashboard-panel-empty {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.dashboard-panel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-panel-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-panel-item-name {
+  font-weight: 500;
+}
+
+.dashboard-panel-item-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.dashboard-panel-item-value {
+  font-weight: 500;
+}
+
+.dashboard-panel-item-value.red {
+  color: #dc2626;
+}
+
+.dashboard-panel-item-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}

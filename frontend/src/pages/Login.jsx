@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
+import './Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -25,44 +27,29 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-700">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
-        <h1 className="text-3xl font-bold text-slate-800 mb-2">Bem-vindo</h1>
-        <p className="text-slate-500 mb-6">Faça login para continuar</p>
+    <div className="login-page">
+      <div className="login-card">
+        <h1 className="login-title">Bem-vindo</h1>
+        <p className="login-subtitle">Faça login para continuar</p>
 
-        {error && (
-          <div className="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm">{error}</div>
-        )}
+        {error && <div className="login-error">{error}</div>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">E-mail</label>
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
-            />
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="login-field">
+            <label>E-mail</label>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Senha</label>
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
-            />
+          <div className="login-field">
+            <label>Senha</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-primary-600 text-white py-2.5 rounded-lg font-medium hover:bg-primary-700 transition disabled:opacity-50"
-          >
+          <button type="submit" disabled={loading} className="login-btn">
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
+          <Link className="botao-ponto" to="/Ponto">Bater Ponto</Link>
+          <Link className="botao-lista-gerencial" to="/ListaGerencial">Lista Gerencial</Link>
         </form>
+        
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.summary-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-card-label {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.summary-card-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+.summary-card-value.green { color: #16a34a; }
+.summary-card-value.yellow { color: #ca8a04; }
+.summary-card-value.red { color: #dc2626; }

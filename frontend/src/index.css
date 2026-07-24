@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './styles/shared.css';
+@import './components/Layout/Sidebar.css';
+@import './pages/Login.css';
+@import './pages/Dashboard.css';
+@import './pages/Estoque/Estoque.css';
+@import './pages/Gerencial/Gerencial.css';
+
 body {
   font-family: 'Inter', -apple-system, sans-serif;
   background: #f8fafc;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
+import '../../styles/shared.css';
 
 export default function Pagamentos() {
   const [pagamentos, setPagamentos] = useState([]);
@@ -42,53 +43,42 @@ export default function Pagamentos() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-slate-800">Pagamentos Semanais</h1>
-        <button onClick={() => setShowForm(true)}
-          className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700">
-          + Novo Pagamento
-        </button>
+      <div className="page-header">
+        <h1 className="page-title">Pagamentos Semanais</h1>
+        <button onClick={() => setShowForm(true)} className="btn-primary">+ Novo Pagamento</button>
       </div>
 
       {showForm && (
-        <div className="bg-white p-6 rounded-xl border mb-6">
-          <h2 className="text-lg font-semibold mb-4">Novo Pagamento Semanal</h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-            <select className="border p-2 rounded" value={form.funcionario_id}
-              onChange={e => setForm({...form, funcionario_id: e.target.value})} required>
+        <div className="form-card">
+          <h2>Novo Pagamento Semanal</h2>
+          <form onSubmit={handleSubmit} className="form-grid">
+            <select className="input" value={form.funcionario_id} onChange={e => setForm({...form, funcionario_id: e.target.value})} required>
               <option value="">Funcionário *</option>
               {funcionarios.map(f => <option key={f.id} value={f.id}>{f.nome} (R$ {Number(f.valor_semanal).toFixed(2)})</option>)}
             </select>
-            <input type="number" step="0.01" className="border p-2 rounded" placeholder="Valor *"
-              value={form.valor} onChange={e => setForm({...form, valor: e.target.value})} required />
+            <input type="number" step="0.01" className="input" placeholder="Valor *" value={form.valor} onChange={e => setForm({...form, valor: e.target.value})} required />
             <div>
               <label className="text-sm">Início da Semana</label>
-              <input type="date" className="border p-2 rounded w-full"
-                value={form.semana_inicio} onChange={e => setForm({...form, semana_inicio: e.target.value})} required />
+              <input type="date" className="input" value={form.semana_inicio} onChange={e => setForm({...form, semana_inicio: e.target.value})} required />
             </div>
             <div>
               <label className="text-sm">Fim da Semana</label>
-              <input type="date" className="border p-2 rounded w-full"
-                value={form.semana_fim} onChange={e => setForm({...form, semana_fim: e.target.value})} required />
+              <input type="date" className="input" value={form.semana_fim} onChange={e => setForm({...form, semana_fim: e.target.value})} required />
             </div>
-            <input className="border p-2 rounded col-span-2" placeholder="Observações"
-              value={form.observacoes} onChange={e => setForm({...form, observacoes: e.target.value})} />
-            <div className="col-span-2 flex gap-2">
-              <button type="submit" className="bg-primary-600 text-white px-4 py-2 rounded">Salvar</button>
-              <button type="button" onClick={() => setShowForm(false)} className="bg-slate-200 px-4 py-2 rounded">Cancelar</button>
+            <input className="input input-full" placeholder="Observações" value={form.observacoes} onChange={e => setForm({...form, observacoes: e.target.value})} />
+            <div className="form-actions">
+              <button type="submit" className="btn-primary">Salvar</button>
+              <button type="button" onClick={() => setShowForm(false)} className="btn-secondary">Cancelar</button>
             </div>
           </form>
         </div>
       )}
 
-      <div className="bg-white p-4 rounded-xl border mb-6">
-        <div className="grid grid-cols-3 gap-4">
-          <input type="date" className="border p-2 rounded"
-            value={filter.semana_inicio} onChange={e => setFilter({...filter, semana_inicio: e.target.value})} />
-          <input type="date" className="border p-2 rounded"
-            value={filter.semana_fim} onChange={e => setFilter({...filter, semana_fim: e.target.value})} />
-          <select className="border p-2 rounded" value={filter.status}
-            onChange={e => setFilter({...filter, status: e.target.value})}>
+      <div className="filter-bar">
+        <div className="form-grid form-grid-3">
+          <input type="date" className="input" value={filter.semana_inicio} onChange={e => setFilter({...filter, semana_inicio: e.target.value})} />
+          <input type="date" className="input" value={filter.semana_fim} onChange={e => setFilter({...filter, semana_fim: e.target.value})} />
+          <select className="input" value={filter.status} onChange={e => setFilter({...filter, status: e.target.value})}>
             <option value="">Todos status</option>
             <option value="pendente">Pendente</option>
             <option value="pago">Pago</option>
@@ -97,41 +87,37 @@ export default function Pagamentos() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-slate-50">
+      <div className="table-container">
+        <table className="table">
+          <thead>
             <tr>
-              <th className="text-left p-3">Funcionário</th>
-              <th className="text-left p-3">Semana</th>
-              <th className="text-left p-3">Valor</th>
-              <th className="text-left p-3">Status</th>
-              <th className="text-left p-3">Pago em</th>
-              <th className="p-3">Ações</th>
+              <th>Funcionário</th>
+              <th>Semana</th>
+              <th>Valor</th>
+              <th>Status</th>
+              <th>Pago em</th>
+              <th className="table-actions">Ações</th>
             </tr>
           </thead>
           <tbody>
             {pagamentos.map(p => (
-              <tr key={p.id} className="border-t">
-                <td className="p-3 font-medium">{p.funcionario_nome}</td>
-                <td className="p-3 text-sm">
+              <tr key={p.id} className="table-row">
+                <td className="font-medium">{p.funcionario_nome}</td>
+                <td className="text-sm">
                   {new Date(p.semana_inicio).toLocaleDateString('pt-BR')} até {new Date(p.semana_fim).toLocaleDateString('pt-BR')}
                 </td>
-                <td className="p-3 font-semibold">R$ {Number(p.valor).toFixed(2)}</td>
-                <td className="p-3">
-                  <span className={`px-2 py-1 rounded text-xs ${
-                    p.status === 'pago' ? 'bg-green-100 text-green-700' :
-                    p.status === 'pendente' ? 'bg-yellow-100 text-yellow-700' :
-                    'bg-red-100 text-red-700'
-                  }`}>
+                <td className="font-bold">R$ {Number(p.valor).toFixed(2)}</td>
+                <td>
+                  <span className={`status-badge ${p.status === 'pago' ? 'status-pago' : p.status === 'pendente' ? 'status-pendente' : 'status-cancelado'}`}>
                     {p.status}
                   </span>
                 </td>
-                <td className="p-3 text-sm">
+                <td className="text-sm">
                   {p.data_pagamento ? new Date(p.data_pagamento).toLocaleDateString('pt-BR') : '-'}
                 </td>
-                <td className="p-3 text-center">
+                <td className="table-actions">
                   {p.status === 'pendente' && (
-                    <button onClick={() => pagar(p.id)} className="text-green-600 font-medium">Pagar</button>
+                    <span className="link-pay" onClick={() => pagar(p.id)}>Pagar</span>
                   )}
                 </td>
               </tr>

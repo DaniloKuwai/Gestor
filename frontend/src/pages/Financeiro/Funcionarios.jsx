@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
+import '../../styles/shared.css';
 
 export default function Funcionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({
-    nome: '', cpf: '', cargo: '', pix: '', telefone: '',
-    data_admissao: '', valor_semanal: 0
+    nome: '', cpf: '', cargo: '', pix: '', telefone: '', data_admissao: '', valor_semanal: 0
   });
 
   const load = async () => {
@@ -39,8 +39,7 @@ export default function Funcionarios() {
     setForm({
       nome: f.nome, cpf: f.cpf || '', cargo: f.cargo || '',
       pix: f.pix || '', telefone: f.telefone || '',
-      data_admissao: f.data_admissao?.split('T')[0] || '',
-      valor_semanal: f.valor_semanal
+      data_admissao: f.data_admissao?.split('T')[0] || '', valor_semanal: f.valor_semanal
     });
     setShowForm(true);
   };
@@ -54,69 +53,58 @@ export default function Funcionarios() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-slate-800">Funcionários</h1>
-        <button
-          onClick={() => { setShowForm(true); setEditing(null); }}
-          className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700"
-        >
+      <div className="page-header">
+        <h1 className="page-title">Funcionários</h1>
+        <button onClick={() => { setShowForm(true); setEditing(null); }} className="btn-primary">
           + Novo Funcionário
         </button>
       </div>
 
       {showForm && (
-        <div className="bg-white p-6 rounded-xl border mb-6">
-          <h2 className="text-lg font-semibold mb-4">{editing ? 'Editar' : 'Novo'} Funcionário</h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-            <input className="border p-2 rounded" placeholder="Nome *"
-              value={form.nome} onChange={e => setForm({...form, nome: e.target.value})} required />
-            <input className="border p-2 rounded" placeholder="CPF"
-              value={form.cpf} onChange={e => setForm({...form, cpf: e.target.value})} />
-            <input className="border p-2 rounded" placeholder="Cargo"
-              value={form.cargo} onChange={e => setForm({...form, cargo: e.target.value})} />
-            <input className="border p-2 rounded" placeholder="PIX"
-              value={form.pix} onChange={e => setForm({...form, pix: e.target.value})} />
-            <input className="border p-2 rounded" placeholder="Telefone"
-              value={form.telefone} onChange={e => setForm({...form, telefone: e.target.value})} />
-            <input type="date" className="border p-2 rounded"
-              value={form.data_admissao} onChange={e => setForm({...form, data_admissao: e.target.value})} />
-            <input type="number" step="0.01" className="border p-2 rounded col-span-2"
-              placeholder="Valor Semanal (R$)"
-              value={form.valor_semanal} onChange={e => setForm({...form, valor_semanal: e.target.value})} />
-            <div className="col-span-2 flex gap-2">
-              <button type="submit" className="bg-primary-600 text-white px-4 py-2 rounded">Salvar</button>
-              <button type="button" onClick={() => setShowForm(false)} className="bg-slate-200 px-4 py-2 rounded">Cancelar</button>
+        <div className="form-card">
+          <h2>{editing ? 'Editar' : 'Novo'} Funcionário</h2>
+          <form onSubmit={handleSubmit} className="form-grid">
+            <input className="input" placeholder="Nome *" value={form.nome} onChange={e => setForm({...form, nome: e.target.value})} required />
+            <input className="input" placeholder="CPF" value={form.cpf} onChange={e => setForm({...form, cpf: e.target.value})} />
+            <input className="input" placeholder="Cargo" value={form.cargo} onChange={e => setForm({...form, cargo: e.target.value})} />
+            <input className="input" placeholder="PIX" value={form.pix} onChange={e => setForm({...form, pix: e.target.value})} />
+            <input className="input" placeholder="Telefone" value={form.telefone} onChange={e => setForm({...form, telefone: e.target.value})} />
+            <input type="date" className="input" value={form.data_admissao} onChange={e => setForm({...form, data_admissao: e.target.value})} />
+            <input type="number" step="0.01" className="input input-full" placeholder="Valor Semanal (R$)" value={form.valor_semanal} onChange={e => setForm({...form, valor_semanal: e.target.value})} />
+            <div className="form-actions">
+              <button type="submit" className="btn-primary">Salvar</button>
+              <button type="button" onClick={() => setShowForm(false)} className="btn-secondary">Cancelar</button>
             </div>
           </form>
         </div>
       )}
 
-      <div className="bg-white rounded-xl border overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-slate-50">
+      <div className="table-container">
+        <table className="table">
+          <thead>
             <tr>
-              <th className="text-left p-3">Nome</th>
-              <th className="text-left p-3">Cargo</th>
-              <th className="text-left p-3">Valor Semanal</th>
-              <th className="text-left p-3">PIX</th>
-              <th className="p-3">Ações</th>
+              <th>Nome</th>
+              <th>Cargo</th>
+              <th>Valor Semanal</th>
+              <th>PIX</th>
+              <th className="table-actions">Ações</th>
             </tr>
           </thead>
           <tbody>
             {funcionarios.map(f => (
-              <tr key={f.id} className="border-t hover:bg-slate-50">
-                <td className="p-3 font-medium">{f.nome}</td>
-                <td className="p-3">{f.cargo || '-'}</td>
-                <td className="p-3">R$ {Number(f.valor_semanal).toFixed(2)}</td>
-                <td className="p-3 text-sm text-slate-600">{f.pix || '-'}</td>
-                <td className="p-3 text-center">
-                  <button onClick={() => handleEdit(f)} className="text-primary-600 mr-3">Editar</button>
-                  <button onClick={() => handleDelete(f.id)} className="text-red-600">Excluir</button>
+              <tr key={f.id} className="table-row">
+                <td className="font-medium">{f.nome}</td>
+                <td>{f.cargo || '-'}</td>
+                <td>R$ {Number(f.valor_semanal).toFixed(2)}</td>
+                <td className="text-sm text-gray">{f.pix || '-'}</td>
+                <td className="table-actions">
+                  <span className="link-edit" onClick={() => handleEdit(f)}>Editar</span>
+                  <span className="link-delete" onClick={() => handleDelete(f.id)}>Excluir</span>
                 </td>
               </tr>
             ))}
             {funcionarios.length === 0 && (
-              <tr><td colSpan="5" className="p-8 text-center text-slate-500">Nenhum funcionário cadastrado</td></tr>
+              <tr><td colSpan="5" className="table-empty">Nenhum funcionário cadastrado</td></tr>
             )}
           </tbody>
         </table>

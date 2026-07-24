@@ -17,3 +17,6 @@ Thumbs.db
 # Arquivos de teste
 test-db.js
 test-env.js
+
+# Documentacao local
+DOCUMENTACAO.md
