@@ -1,0 +1,76 @@
+/* Container principal */
+
+h2{
+    text-align:center;
+}
+
+.formulario {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, #0f172a, #334155);
+}
+
+/* Formulário */
+.formulario form {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Textos dos campos */
+.formulario label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-top: 0.5rem;
+}
+
+/* Inputs */
+.formulario input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+
+    font-size: 1rem;
+    outline: none;
+}
+
+/* Quando clicar no input */
+.formulario input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Botão */
+.formulario button {
+    margin-top: 1rem;
+    padding: 0.75rem;
+
+    border: none;
+    border-radius: 0.5rem;
+
+    background-color: #2563eb;
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+/* Efeito ao passar o mouse */
+.formulario button:hover {
+    background-color: #1d4ed8;
+}
