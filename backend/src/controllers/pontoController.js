@@ -1,4 +1,6 @@
+import bcrypt from 'bcrypt';
 import pool from '../config/db.js';
+
 
 const calcularDiferencaHoras = (entrada, saida) => {
   if (!entrada || !saida) return 0;
@@ -9,7 +11,12 @@ const calcularDiferencaHoras = (entrada, saida) => {
 };
 
 export const baterPonto = async (req, res) => {
-  const { funcionario_id, data, entrada, saida_almoco, retorno_almoco, saida, observacoes } = req.body;
+  const { funcionario_id,
+    cpf,
+    senha,
+    latitude,
+    longitude,
+    observacoes } = req.body;
 
   try {
     let horas = 0;

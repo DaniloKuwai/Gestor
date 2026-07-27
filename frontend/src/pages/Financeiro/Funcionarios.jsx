@@ -7,7 +7,7 @@ export default function Funcionarios() {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({
-    nome: '', cpf: '', cargo: '', pix: '', telefone: '', data_admissao: '', valor_semanal: 0
+    nome: '', cpf: '', cargo: '', pix: '', telefone: '', data_admissao: '', valor_diario: 100, senha_ponto: ''
   });
 
   const load = async () => {
@@ -27,7 +27,7 @@ export default function Funcionarios() {
       }
       setShowForm(false);
       setEditing(null);
-      setForm({ nome: '', cpf: '', cargo: '', pix: '', telefone: '', data_admissao: '', valor_semanal: 0 });
+      setForm({ nome: '', cpf: '', cargo: '', pix: '', telefone: '', data_admissao: '', valor_diario: 100,senha_ponto:'' });
       load();
     } catch (err) {
       alert('Erro ao salvar');
@@ -39,7 +39,7 @@ export default function Funcionarios() {
     setForm({
       nome: f.nome, cpf: f.cpf || '', cargo: f.cargo || '',
       pix: f.pix || '', telefone: f.telefone || '',
-      data_admissao: f.data_admissao?.split('T')[0] || '', valor_semanal: f.valor_semanal
+      data_admissao: f.data_admissao?.split('T')[0] || '', valor_diario: f.valor_diario, senha: f.senha_ponto || '' 
     });
     setShowForm(true);
   };
@@ -70,7 +70,8 @@ export default function Funcionarios() {
             <input className="input" placeholder="PIX" value={form.pix} onChange={e => setForm({...form, pix: e.target.value})} />
             <input className="input" placeholder="Telefone" value={form.telefone} onChange={e => setForm({...form, telefone: e.target.value})} />
             <input type="date" className="input" value={form.data_admissao} onChange={e => setForm({...form, data_admissao: e.target.value})} />
-            <input type="number" step="0.01" className="input input-full" placeholder="Valor Semanal (R$)" value={form.valor_semanal} onChange={e => setForm({...form, valor_semanal: e.target.value})} />
+            <input type="input" className="input input-full" placeholder="Valor Diario (R$)" value={form.valor_semanal} onChange={e => setForm({...form, valor_diario: e.target.value})} />
+            <input type="input" className="input" placeholder="Senha para funcionario bater o ponto" value={form.senha_ponto} onChange={e => setForm({...form, senha_ponto: e.target.value})} />
             <div className="form-actions">
               <button type="submit" className="btn-primary">Salvar</button>
               <button type="button" onClick={() => setShowForm(false)} className="btn-secondary">Cancelar</button>
